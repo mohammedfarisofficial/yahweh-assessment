@@ -64,14 +64,11 @@ const DashboardPage = () => {
           <h1>List of Assessments</h1>
           <p className="text-gray-400 text-sm">Assessment dashboard</p>
         </div>
-        <div className="flex gap-5">
-          <Link href={ROUTES.ASSESSMENT_CREATE}>
-            <Button variant="outline">Question Bank</Button>
-          </Link>
-          <Link href={ROUTES.ASSESSMENT_CREATE}>
-            <Button>Create Assessment</Button>
-          </Link>
-        </div>
+        <Link href={ROUTES.ASSESSMENT_DRAFTS}>
+          <Button variant="outline" className=" text-red-500">
+            Drafts
+          </Button>
+        </Link>
       </Header>
 
       <div className="w-full">
@@ -80,10 +77,19 @@ const DashboardPage = () => {
             <TabsTrigger value="recent">Recent</TabsTrigger>
             <TabsTrigger value="my-assessments">My Assessments</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="archives">Archives</TabsTrigger>
+            <div className="absolute right-[2rem] flex gap-5">
+              <Link href={ROUTES.ASSESSMENT_QN_BANK}>
+                <Button variant="outline">Question Bank</Button>
+              </Link>
+              <Link href={ROUTES.ASSESSMENT_CREATE}>
+                <Button>Create Assessment</Button>
+              </Link>
+            </div>
           </TabsList>
           <Header>
-            <SearchBar />
             <div className="flex gap-5">
+              <SearchBar />
               <Button variant="outline">
                 <ArrowDownUp className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <p className="ml-2">Sort</p>
@@ -179,6 +185,17 @@ const DashboardPage = () => {
             </Table>
           </TabsContent>
           <TabsContent value="analytics">
+            <ChartContainer
+              config={chartConfig}
+              className="min-h-[200px] w-full"
+            >
+              <BarChart accessibilityLayer data={chartData}>
+                <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+                <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+              </BarChart>
+            </ChartContainer>
+          </TabsContent>
+          <TabsContent value="archives">
             <ChartContainer
               config={chartConfig}
               className="min-h-[200px] w-full"

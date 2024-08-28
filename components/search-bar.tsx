@@ -1,8 +1,8 @@
 import { Input } from "@/components/ui/input";
 const SearchBar = () => {
   return (
-    <div className="">
-      <Input placeholder="Search here..." />
+    <div className="w-full">
+      <Input className="" placeholder="Search here..." />
     </div>
   );
 };

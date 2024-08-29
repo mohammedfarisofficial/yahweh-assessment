@@ -121,14 +121,18 @@ const Answer = ({ questiontype, questionAccesstype, answers, correct_answer }: P
             {questiontype === PROBLEM_TYPE_TRUE_OR_FALSE && (
                <div className="w-full p-5">
                   <Label>Select Correct option</Label>
-                  <RadioGroup className="grid grid-cols-2 mt-3" defaultValue="option-one">
+                  <RadioGroup
+                     className="grid grid-cols-2 mt-3"
+                     value={correct_answer}
+                     defaultValue="option-one"
+                  >
                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="option-one" id="option-one" />
-                        <Label htmlFor="option-one">True</Label>
+                        <RadioGroupItem value="true" id="option" />
+                        <Label htmlFor="option">True</Label>
                      </div>
                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="option-two" id="option-two" />
-                        <Label htmlFor="option-two">False</Label>
+                        <RadioGroupItem value="false" id="option" />
+                        <Label htmlFor="option">False</Label>
                      </div>
                   </RadioGroup>
                </div>

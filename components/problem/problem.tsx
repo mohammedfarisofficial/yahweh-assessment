@@ -12,7 +12,7 @@ interface PropsType {
   // children: React.ReactNode;
   questionAccesstype: string;
   questiontype: string;
-  onClickEdit: ()=> void
+  onClickEdit?: ()=> void
 }
 const Problem = ({  questiontype, questionAccesstype,onClickEdit }: PropsType) => {
   return (

@@ -1,25 +1,35 @@
 import { assessments as demoAssessments, AssessmentStateType } from "@/data";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type dataStateProps = {
-  assessments: AssessmentStateType[];
-  loading: boolean;
-  error: string | null;
+   questions?: any | null;
+   assessments?: AssessmentStateType[];
+   loading?: boolean;
+   error?: string | null;
+   assessmentCreating?: any | null;
 };
 
 const initialState: dataStateProps = {
-  assessments: demoAssessments,
-  loading: false,
-  error: null,
+  questions: [],
+   assessments: demoAssessments,
+   loading: false,
+   error: null,
+   assessmentCreating: null,
 };
 
 const dataSlice = createSlice({
-  name: "dataState",
-  initialState,
-  reducers: {
-    // set: (state, action) => {},
-  },
+   name: "dataState",
+   initialState,
+   reducers: {
+      setAssessmentCreating: (state, action: PayloadAction<any>) => {
+         state.assessmentCreating = action.payload;
+      },
+      addQuestion: (state, action: PayloadAction<any>)=> {
+        console.log("redux",action.payload)
+        state.questions.push(action.payload)
+      }
+   },
 });
 
-export const {} = dataSlice.actions;
+export const { setAssessmentCreating, addQuestion } = dataSlice.actions;
 export default dataSlice.reducer;

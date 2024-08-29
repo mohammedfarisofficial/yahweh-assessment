@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import Header from "@/components/header";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +22,10 @@ import { Button } from "@/components/ui/button";
 import Container from "@/components/container";
 import { useToast } from "@/components/ui/use-toast";
 import { useParams } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "@/app/store/store";
+import { addQuestion, setAssessmentCreating } from "@/app/store/reducers/dataSlice";
+import { useRouter } from "next/navigation";
 
 type ProblemType = {
    id: string;
@@ -46,17 +49,15 @@ const CreateProblem = () => {
    const [problemDetails, setProblemDetails] = useState<ProblemType>(defaultProblem);
    const [newOption, setNewOption] = useState<string>("");
 
+   const { authUser } = useSelector((state: RootState) => state.authState);
+   const { assessmentCreating } = useSelector((state: RootState) => state.dataState);
+   const { questions } = useSelector((state: RootState) => state.dataState);
+
    const { assessmentId, problemId } = useParams();
 
    const { toast } = useToast();
-
-   useEffect(() => {
-      const createdById = "64d2eaf1b39b540001234571";
-      setProblemDetails((prevState) => ({
-         ...prevState,
-         created_by: createdById,
-      }));
-   }, []);
+   const dispatch = useAppDispatch();
+   const router = useRouter();
 
    useEffect(() => {
       if (problemDetails.questiontype === PROBLEM_TYPE_TRUE_OR_FALSE) {
@@ -111,18 +112,29 @@ const CreateProblem = () => {
    };
    const clearProblemHanlder = () => {
       console.log("Clear Problem");
-      console.log(defaultProblem)
+      console.log(defaultProblem);
       setProblemDetails(defaultProblem);
    };
    const createProblemHandler = () => {
-      // console.log(assessmentId, problemId);
-      // return;
-      const id = uuidv4();
       setProblemDetails((prevState) => ({
          ...prevState,
-         id,
+         id: problemId.toString(),
+         created_by: authUser?.id.toString(),
       }));
-      console.log("problemDetails", problemDetails);
+      if (problemDetails.id != "" && problemDetails.created_by != "") {
+         dispatch(addQuestion(problemDetails));
+         console.log("questions", questions);
+         const updatedQuestion = [...assessmentCreating.questions, problemDetails.id];
+         console.log("updated questions in problem submit", updatedQuestion);
+         dispatch(
+            setAssessmentCreating({
+               ...assessmentCreating,
+               questions: updatedQuestion,
+            })
+         );
+         console.log("problemDetails", problemDetails);
+         router.back();
+      }
    };
 
    return (
@@ -139,7 +151,12 @@ const CreateProblem = () => {
          <div className="flex flex-col gap-5">
             <div>
                <Label htmlFor="question">Enter the Question</Label>
-               <Input value={problemDetails.question} name="question" onChange={onChangeInput} placeholder="Enter the question" />
+               <Input
+                  value={problemDetails.question}
+                  name="question"
+                  onChange={onChangeInput}
+                  placeholder="Enter the question"
+               />
             </div>
             <div>
                <Label htmlFor="username" className="text-right">

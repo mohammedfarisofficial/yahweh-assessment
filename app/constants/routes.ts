@@ -1,9 +1,12 @@
-export const HOME                            = "/";
-export const DASHBOARD                       = "/dashboard";
+export const HOME                                       = "/";
+export const DASHBOARD                                  = "/dashboard";
 
 // Auth
-export const LOGIN                           = "/login"
+export const LOGIN                                      = "/login"
 // Dashboard
-export const ASSESSMENT_CREATE               = `${DASHBOARD}/assessment-create`
-export const ASSESSMENT_QN_BANK              = `${DASHBOARD}/question-bank`
-export const ASSESSMENT_DRAFTS              = `${DASHBOARD}/drafts`
+export const ASSESSMENT_CREATE                          = `${DASHBOARD}/c`
+export const ASSESSMENT_QN_BANK                         = `${DASHBOARD}/question-bank`
+export const ASSESSMENT_DRAFTS                          = `${DASHBOARD}/drafts`
+// Create Assessment
+export const ASSESSMENT_EDIT_PREFIX                     = `/e`
+export const ASSESSMENT_CREATE_PROBLEM_PREFIX           = `/p`

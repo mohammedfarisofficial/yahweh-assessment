@@ -12,8 +12,9 @@ interface PropsType {
   // children: React.ReactNode;
   questionAccesstype: string;
   questiontype: string;
+  onClickEdit: ()=> void
 }
-const Problem = ({  questiontype, questionAccesstype }: PropsType) => {
+const Problem = ({  questiontype, questionAccesstype,onClickEdit }: PropsType) => {
   return (
     <Card className="w-full p-5">
       <Question/>
@@ -22,7 +23,7 @@ const Problem = ({  questiontype, questionAccesstype }: PropsType) => {
       {questionAccesstype === PROBLEM_ACCESS_TYPE_MODERATOR && (
         <div className="w-full flex justify-end gap-5 py-5">
           <Button variant="destructive">Delete</Button>
-          <Button variant="secondary">Edit</Button>
+          <Button onClick={onClickEdit} variant="secondary">Edit</Button>
         </div>
       )}
       {questionAccesstype === PROBLEM_ACCESS_TYPE_CAN_ANSWER && (

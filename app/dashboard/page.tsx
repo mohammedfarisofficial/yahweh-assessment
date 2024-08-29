@@ -54,7 +54,7 @@ const DashboardPage = () => {
 
   const createAssessmentHandler = () => {
     console.log("navigate to create Assessment");
-    router.push(ROUTES.ASSESSMENT_CREATE);
+    router.push(`${ROUTES.ASSESSMENT_CREATE}/123`);
   };
 
   return (
@@ -82,7 +82,7 @@ const DashboardPage = () => {
               <Link href={ROUTES.ASSESSMENT_QN_BANK}>
                 <Button variant="outline">Question Bank</Button>
               </Link>
-              <Link href={ROUTES.ASSESSMENT_CREATE}>
+              <Link href={`${ROUTES.ASSESSMENT_CREATE}/123`}>
                 <Button>Create Assessment</Button>
               </Link>
             </div>

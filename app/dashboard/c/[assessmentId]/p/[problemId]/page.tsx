@@ -205,8 +205,8 @@ const CreateProblem = () => {
                         />
                      </div>
                      <Button onClick={addNewOption}>Add</Button>
-                  </Container>
-                  {!!problemDetails.answers.length && (
+                  </Container> 
+                  {problemDetails.answers && !!problemDetails.answers.length && (
                      <Container>
                         <Label htmlFor="username">Correct option</Label>
                         <Select onValueChange={onCorrectAnswerChange}>
@@ -214,7 +214,7 @@ const CreateProblem = () => {
                               <SelectValue placeholder="Correct option" />
                            </SelectTrigger>
                            <SelectContent>
-                              {problemDetails.answers.map((answer, index) => (
+                              {problemDetails.answers.map((answer:string, index:number) => (
                                  <SelectItem key={index} value={answer}>
                                     {answer}
                                  </SelectItem>

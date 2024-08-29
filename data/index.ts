@@ -7,7 +7,7 @@ export enum AssessmentType {
   assignment = "assignment",
   survey = "survey",
 }
-enum VisibilityType {
+export enum VisibilityType {
   private = "private",
   all = "all",
   specificGroup = "specific-group",

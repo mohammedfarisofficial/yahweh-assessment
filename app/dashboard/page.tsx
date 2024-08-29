@@ -83,9 +83,7 @@ const DashboardPage = () => {
                      <Link href={ROUTES.ASSESSMENT_QN_BANK}>
                         <Button variant="outline">Question Bank</Button>
                      </Link>
-                     {/* <Link href={`${ROUTES.ASSESSMENT_CREATE}/123`}> */}
                      <Button onClick={createAssessmentHandler}>Create Assessment</Button>
-                     {/* </Link> */}
                   </div>
                </TabsList>
                <Header>
@@ -114,7 +112,7 @@ const DashboardPage = () => {
                      </TableHeader>
                      <TableBody>
                         {assessments && !!assessments.length ? (
-                           assessments.map((assessment: AssessmentStateType, index) => (
+                           assessments.map((assessment: AssessmentStateType, index: number) => (
                               <TableRow key={index}>
                                  <TableCell>{assessment.id}</TableCell>
                                  <TableCell>{assessment.title}</TableCell>
@@ -156,7 +154,7 @@ const DashboardPage = () => {
                      </TableHeader>
                      <TableBody>
                         {assessments && !!assessments.length ? (
-                           assessments.map((assessment: AssessmentStateType, index) => (
+                           assessments.map((assessment: AssessmentStateType, index: number) => (
                               <TableRow key={index}>
                                  <TableCell>{assessment.id}</TableCell>
                                  <TableCell>{assessment.title}</TableCell>

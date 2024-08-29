@@ -106,7 +106,7 @@ const Answer = ({ questiontype, questionAccesstype, answers, correct_answer }: P
                         value={correct_answer}
                         defaultValue="option-one"
                      >
-                        {answers.map((answer, index) => (
+                        {answers.map((answer: string, index: number) => (
                            <div key={index} className="flex items-center space-x-2">
                               <RadioGroupItem value={answer} id="option" />
                               <Label htmlFor="option-one">{answer}</Label>

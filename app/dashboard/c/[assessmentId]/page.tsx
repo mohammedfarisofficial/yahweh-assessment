@@ -40,9 +40,11 @@ import { PROBLEM_ACCESS_TYPE_MODERATOR, PROBLEM_TYPE_SHORT } from "@/app/constan
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { RootState, useAppDispatch } from "@/app/store/store";
-import { setAssessmentCreating } from "@/app/store/reducers/dataSlice";
+import { addAssessment, setAssessmentCreating } from "@/app/store/reducers/dataSlice";
 import { useSelector } from "react-redux";
 import { setCreateAssessmentDlg } from "@/app/store/reducers/uiSlice";
+import { VISIBILITY_ALL } from "@/app/constants/visibility-type";
+import { ACCESS_ALL } from "@/app/constants/access-type";
 
 type ProblemType = {
    id: string;
@@ -52,27 +54,40 @@ type ProblemType = {
    questions: string[];
    created_by: string;
    created_at: string;
-   start_date: string;
-   start_time: string;
-   end_date: string;
+   visibility: string;
+   access_permission: string;
+   begin_time: string;
+   begin_date: string;
    end_time: string;
-   publish_type: string;
-
-   // settings state left to add
+   end_date: string;
+   attempt_limit: number;
+   feedback_timing: string;
+   feedback_content: string;
+   grade_config: string;
+   notification_config: string;
 };
 const defaultProblem: ProblemType = {
    id: "",
    title: "",
-   instructions: [],
+   instructions: [
+      "Read all questions carefully before answering.",
+      "Manage your time wisely and double-check your answers.",
+   ],
    type: "quiz",
    questions: [],
    created_by: "",
    created_at: "",
-   start_date: "",
-   start_time: "",
-   end_date: "",
+   visibility: VISIBILITY_ALL,
+   access_permission: ACCESS_ALL,
+   begin_time: "",
+   begin_date: "",
    end_time: "",
-   publish_type: "",
+   end_date: "",
+   attempt_limit: 1,
+   feedback_timing: "immediate", // immediate or after-assessment close
+   feedback_content: "",
+   grade_config: "immediate", // immediate or after-grade
+   notification_config: "off", // on or off
 };
 
 const AssessmentCreate = () => {
@@ -80,6 +95,9 @@ const AssessmentCreate = () => {
    const { assessmentCreating } = useSelector((state: RootState) => state.dataState);
    const { questions } = useSelector((state: RootState) => state.dataState);
    const { isCreateAssessmentDlgOpen } = useSelector((state: RootState) => state.uiState);
+   const { authUser } = useSelector((state: RootState) => state.authState);
+
+   const { isOpen, onClose, setIsOpen } = useDisclosure(false);
 
    const { assessmentId } = useParams();
 
@@ -87,11 +105,12 @@ const AssessmentCreate = () => {
    const dispatch = useAppDispatch();
 
    const assessmentSetupHanlder = async () => {
-      console.log(assessmentId);
       const updatedAssessmentDetails = {
          ...assessmentDetails,
          id: assessmentId.toString(),
+         created_by: authUser.id,
       };
+
       setAssessmentDetails(updatedAssessmentDetails);
       if (updatedAssessmentDetails.id !== "" && updatedAssessmentDetails.title !== "") {
          dispatch(setAssessmentCreating(updatedAssessmentDetails));
@@ -128,7 +147,15 @@ const AssessmentCreate = () => {
       const questionFound = questions?.filter((question: any) => question?.id === questionId)[0];
       return questionFound;
    });
-   console.log(questions2Show);
+   // console.log(questions2Show);
+
+   const uploadAssesmentHandler = () => {
+      dispatch(addAssessment(assessmentCreating));
+      dispatch(setCreateAssessmentDlg(true));
+      onClose();
+      router.back();
+   };
+   console.log("assessmentCreating", assessmentCreating);
    return (
       <div>
          <Header>
@@ -136,7 +163,34 @@ const AssessmentCreate = () => {
                <h1>Assessment Settings - {assessmentCreating?.title}</h1>
                <p className="text-gray-400 text-sm">ID : {assessmentCreating?.id}</p>
             </div>
-            <Button>Upload Accessment</Button>
+
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+               <DialogTrigger>
+                  <Button>Upload Assessment</Button>
+               </DialogTrigger>
+               <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                     <DialogTitle>Create New Assessement</DialogTitle>
+                     <DialogDescription>Enter Title and select Assessment type</DialogDescription>
+                  </DialogHeader>
+                  {/* <div className="grid gap-4 py-4">
+                     <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="username" className="text-right">
+                           Enter Title
+                        </Label>
+                        <Input name="title" placeholder="Enter title..." />
+                     </div>
+                     <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="username" className="text-right">
+                           Assessment type
+                        </Label>
+                     </div>
+                  </div> */}
+                  <DialogFooter>
+                     <Button onClick={uploadAssesmentHandler}>Upload</Button>
+                  </DialogFooter>
+               </DialogContent>
+            </Dialog>
          </Header>
          <Dialog open={isCreateAssessmentDlgOpen}>
             <DialogContent className="sm:max-w-[425px]">
@@ -166,7 +220,7 @@ const AssessmentCreate = () => {
                         <SelectContent>
                            {assessmentType &&
                               !!assessmentType.length &&
-                              assessmentType.map((type, index) => (
+                              assessmentType.map((type: string, index: number) => (
                                  <SelectItem key={index} value={type}>
                                     {type}
                                  </SelectItem>
@@ -211,7 +265,7 @@ const AssessmentCreate = () => {
                         <Card key={index} className="flex flex-col gap-5 p-5">
                            <div>
                               <p>
-                                 {index + 1}. Question : {question?.question}
+                                 Question {index + 1}: {question?.question}
                               </p>
                            </div>
                         </Card>

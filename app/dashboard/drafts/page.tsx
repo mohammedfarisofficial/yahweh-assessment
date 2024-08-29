@@ -40,7 +40,7 @@ const AssessmentDrafts = () => {
         </TableHeader>
         <TableBody>
           {assessments && !!assessments.length ? (
-            assessments.map((assessment: AssessmentStateType, index) => (
+            assessments.map((assessment: AssessmentStateType, index:number) => (
               <TableRow key={index}>
                 <TableCell>{assessment.id}</TableCell>
                 <TableCell>{assessment.title}</TableCell>

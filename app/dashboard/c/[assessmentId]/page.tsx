@@ -45,6 +45,7 @@ import { useSelector } from "react-redux";
 import { setCreateAssessmentDlg } from "@/app/store/reducers/uiSlice";
 import { VISIBILITY_ALL } from "@/app/constants/visibility-type";
 import { ACCESS_ALL } from "@/app/constants/access-type";
+import teacherRoute from "@/app/auth/teacherRoute";
 
 type ProblemType = {
    id: string;
@@ -364,10 +365,4 @@ const AssessmentCreate = () => {
    );
 };
 
-export default AssessmentCreate;
-
-// qn
-// type
-// type - answer Setting
-// level - easy - medium - hard
-// subject -
+export default teacherRoute(AssessmentCreate);

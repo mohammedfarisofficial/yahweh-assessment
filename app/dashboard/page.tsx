@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-// constants
 import * as ROUTES from "@/app/constants/routes";
 import Header from "@/components/header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,10 +17,8 @@ import {
 
 import Link from "next/link";
 import { RootState, useAppDispatch } from "../store/store";
-import { setLogout } from "../store/reducers/authSlice";
 import { useSelector } from "react-redux";
 import { AssessmentStateType, AssessmentType } from "@/data";
-
 import { type ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart } from "recharts";
 import { ChartContainer } from "@/components/ui/chart";

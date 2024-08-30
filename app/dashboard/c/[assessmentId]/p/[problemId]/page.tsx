@@ -26,6 +26,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@/app/store/store";
 import { addQuestion, setAssessmentCreating } from "@/app/store/reducers/dataSlice";
 import { useRouter } from "next/navigation";
+import teacherRoute from "@/app/auth/teacherRoute";
 
 type ProblemType = {
    id: string;
@@ -259,4 +260,4 @@ const CreateProblem = () => {
    );
 };
 
-export default CreateProblem;
+export default teacherRoute(CreateProblem);

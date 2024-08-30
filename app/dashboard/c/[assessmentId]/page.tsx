@@ -165,7 +165,7 @@ const AssessmentCreate = () => {
             </div>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-               <DialogTrigger>
+               <DialogTrigger asChild>
                   <Button>Upload Assessment</Button>
                </DialogTrigger>
                <DialogContent className="sm:max-w-[425px]">

@@ -116,15 +116,18 @@ const CreateProblem = () => {
       setProblemDetails(defaultProblem);
    };
    const createProblemHandler = () => {
-      setProblemDetails((prevState) => ({
-         ...prevState,
+      const updatedProblemDetails = {
+         ...problemDetails,
          id: problemId.toString(),
          created_by: authUser?.id.toString(),
-      }));
-      if (problemDetails.id != "" && problemDetails.created_by != "") {
-         dispatch(addQuestion(problemDetails));
+      };
+
+      setProblemDetails(updatedProblemDetails);
+
+      if (updatedProblemDetails.id !== "" && updatedProblemDetails.created_by !== "") {
+         dispatch(addQuestion(updatedProblemDetails));
          console.log("questions", questions);
-         const updatedQuestion = [...assessmentCreating.questions, problemDetails.id];
+         const updatedQuestion = [...assessmentCreating.questions, updatedProblemDetails.id];
          console.log("updated questions in problem submit", updatedQuestion);
          dispatch(
             setAssessmentCreating({
@@ -132,7 +135,7 @@ const CreateProblem = () => {
                questions: updatedQuestion,
             })
          );
-         console.log("problemDetails", problemDetails);
+         console.log("problemDetails", updatedProblemDetails);
          router.back();
       }
    };
@@ -205,7 +208,7 @@ const CreateProblem = () => {
                         />
                      </div>
                      <Button onClick={addNewOption}>Add</Button>
-                  </Container> 
+                  </Container>
                   {problemDetails.answers && !!problemDetails.answers.length && (
                      <Container>
                         <Label htmlFor="username">Correct option</Label>
@@ -214,7 +217,7 @@ const CreateProblem = () => {
                               <SelectValue placeholder="Correct option" />
                            </SelectTrigger>
                            <SelectContent>
-                              {problemDetails.answers.map((answer:string, index:number) => (
+                              {problemDetails.answers.map((answer: string, index: number) => (
                                  <SelectItem key={index} value={answer}>
                                     {answer}
                                  </SelectItem>

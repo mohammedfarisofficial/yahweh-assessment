@@ -27,6 +27,7 @@ import { Bar, BarChart } from "recharts";
 import { ChartContainer } from "@/components/ui/chart";
 import SearchBar from "@/components/search-bar";
 import { Filter, ArrowDownUp } from "lucide-react";
+import teacherRoute from "../auth/teacherRoute";
 
 const chartData = [
    { month: "January", desktop: 186, mobile: 80 },
@@ -56,6 +57,11 @@ const DashboardPage = () => {
    const createAssessmentHandler = () => {
       const assessmentId = uuidv4();
       router.push(`${ROUTES.ASSESSMENT_CREATE}/${assessmentId}`);
+   };
+   const previewNavigateHandler = (assessmentId: string) => {
+      router.push(
+         `${ROUTES.DASHBOARD}/${ROUTES.ASSESSMENT_PREVIEW_ASSESSMENT_PREFIX}/${assessmentId}`
+      );
    };
 
    return (
@@ -125,7 +131,11 @@ const DashboardPage = () => {
                                     <Button className="ml-2" variant="secondary">
                                        Edit
                                     </Button>
-                                    <Button className="ml-2" variant="secondary">
+                                    <Button
+                                       onClick={() => previewNavigateHandler(assessment.id)}
+                                       className="ml-2"
+                                       variant="secondary"
+                                    >
                                        View
                                     </Button>
                                  </TableCell>
@@ -205,4 +215,4 @@ const DashboardPage = () => {
    );
 };
 
-export default DashboardPage;
+export default teacherRoute(DashboardPage);

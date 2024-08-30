@@ -28,6 +28,18 @@ import { ChartContainer } from "@/components/ui/chart";
 import SearchBar from "@/components/search-bar";
 import { Filter, ArrowDownUp } from "lucide-react";
 import teacherRoute from "../auth/teacherRoute";
+import {
+   AlertDialog,
+   AlertDialogAction,
+   AlertDialogCancel,
+   AlertDialogContent,
+   AlertDialogDescription,
+   AlertDialogFooter,
+   AlertDialogHeader,
+   AlertDialogTitle,
+   AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { deleteAssessment } from "../store/reducers/dataSlice";
 
 const chartData = [
    { month: "January", desktop: 186, mobile: 80 },
@@ -50,13 +62,17 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const DashboardPage = () => {
-   const router = useRouter();
-
    const { assessments } = useSelector((state: RootState) => state.dataState);
+
+   const router = useRouter();
+   const dispatch = useAppDispatch();
 
    const createAssessmentHandler = () => {
       const assessmentId = uuidv4();
       router.push(`${ROUTES.ASSESSMENT_CREATE}/${assessmentId}`);
+   };
+   const deleteAssessmentHandler = (assessmentId: string) => {
+      dispatch(deleteAssessment(assessmentId));
    };
    const previewNavigateHandler = (assessmentId: string) => {
       router.push(
@@ -120,14 +136,38 @@ const DashboardPage = () => {
                         {assessments && !!assessments.length ? (
                            assessments.map((assessment: AssessmentStateType, index: number) => (
                               <TableRow key={index}>
-                                 <TableCell>{assessment.id}</TableCell>
-                                 <TableCell>{assessment.title}</TableCell>
-                                 <TableCell>{assessment.type}</TableCell>
+                                 <TableCell>{assessment?.id}</TableCell>
+                                 <TableCell>{assessment?.title}</TableCell>
+                                 <TableCell>{assessment?.type}</TableCell>
 
                                  <TableCell className="text-right">
-                                    <Button className="ml-2" variant="secondary">
-                                       Delete
-                                    </Button>
+                                    <AlertDialog>
+                                       <AlertDialogTrigger asChild>
+                                          <Button className="ml-2" variant="secondary">
+                                             Delete
+                                          </Button>
+                                       </AlertDialogTrigger>
+                                       <AlertDialogContent>
+                                          <AlertDialogHeader>
+                                             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                             <AlertDialogDescription>
+                                                Are you sure you want to delete this assessment?
+                                                This action is irreversible and will remove all
+                                                associated questions.
+                                             </AlertDialogDescription>
+                                          </AlertDialogHeader>
+                                          <AlertDialogFooter>
+                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                             <AlertDialogAction
+                                                onClick={() =>
+                                                   deleteAssessmentHandler(assessment?.id)
+                                                }
+                                             >
+                                                Continue
+                                             </AlertDialogAction>
+                                          </AlertDialogFooter>
+                                       </AlertDialogContent>
+                                    </AlertDialog>
                                     <Button className="ml-2" variant="secondary">
                                        Edit
                                     </Button>

@@ -33,8 +33,16 @@ const dataSlice = createSlice({
          state.assessments.push(action.payload);
          state.assessmentCreating = null;
       },
+      deleteAssessment: (state, action: PayloadAction<any>) => {
+         console.log("redux", action.payload);
+         const filteredAssessments = state.assessments.filter(
+            (assessmentItem: any) => assessmentItem.id != action.payload
+         );
+         state.assessments = filteredAssessments;
+      },
    },
 });
 
-export const { setAssessmentCreating, addQuestion, addAssessment } = dataSlice.actions;
+export const { setAssessmentCreating, addQuestion, addAssessment, deleteAssessment } =
+   dataSlice.actions;
 export default dataSlice.reducer;

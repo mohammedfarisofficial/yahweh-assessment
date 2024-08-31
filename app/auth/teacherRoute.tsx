@@ -1,3 +1,4 @@
+"use client";
 import { useLayoutEffect } from "react";
 import { redirect } from "next/navigation";
 import { RootState } from "@/app/store/store";

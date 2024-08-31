@@ -1,9 +1,10 @@
-import teacherRoute from "@/app/auth/teacherRoute"
+"use client";
+import teacherRoute from "@/app/auth/teacherRoute";
+import { useParams } from "next/navigation";
 
 const EditProblem = () => {
-  return (
-    <div>EditProblem</div>
-  )
-}
+   const { assessmentId } = useParams();
+   return <div>EditProblem : {assessmentId} </div>;
+};
 
-export default teacherRoute(EditProblem)
+export default teacherRoute(EditProblem);

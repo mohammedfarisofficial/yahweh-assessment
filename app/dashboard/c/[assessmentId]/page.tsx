@@ -119,9 +119,12 @@ const AssessmentCreate = () => {
       }
    };
 
-   const editProblemHanlder = () => {
+   const editProblemHanlder = (problemId: string) => {
+      if (!problemId && !assessmentId) {
+         return;
+      }
       router.push(
-         `${ROUTES.ASSESSMENT_CREATE}/123/${ROUTES.ASSESSMENT_EDIT_PREFIX}/64f2eaf1b39b540001234579`
+         `${ROUTES.ASSESSMENT_CREATE}/${assessmentId}/${ROUTES.ASSESSMENT_EDIT_PREFIX}/${problemId}`
       );
    };
    const onChangeAssessmentDetails = ({ target }: any) => {
@@ -269,12 +272,18 @@ const AssessmentCreate = () => {
                   </Container>
                   {questions2Show && !!questions2Show.length ? (
                      questions2Show.map((question: any, index: number) => (
-                        <Card key={index} className="flex flex-col gap-5 p-5">
+                        <Card key={index} className="flex justify-between gap-5 p-5">
                            <div>
                               <p>
                                  Question {index + 1}: {question?.question}
                               </p>
                            </div>
+                           <Button
+                              onClick={() => editProblemHanlder(question?.id)}
+                              variant="outline"
+                           >
+                              Edit
+                           </Button>
                         </Card>
                      ))
                   ) : (

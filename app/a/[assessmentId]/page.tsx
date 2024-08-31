@@ -14,6 +14,8 @@ import {
 } from "@/app/constants/problem-type";
 import Countdown from "@/components/timer";
 
+const fakeCountDown: number = 60 * 10;
+
 const Assigment = () => {
    const assessmentSubmitHanlder = () => {
       console.log("submit assessment");
@@ -26,7 +28,7 @@ const Assigment = () => {
                <p className="text-gray-400 text-sm">List of Questions</p>
             </div>
             <div className="flex gap-4">
-               <Countdown time={60*10} onTimerEnd={assessmentSubmitHanlder} />
+               <Countdown time={fakeCountDown} onTimerEnd={assessmentSubmitHanlder} />
                <Link href={ROUTES.ASSESSMENT_CREATE}>
                   <Button>Submit Assessment</Button>
                </Link>

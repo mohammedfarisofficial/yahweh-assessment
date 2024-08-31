@@ -37,6 +37,7 @@ import {
    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteAssessment } from "../store/reducers/dataSlice";
+import { useState } from "react";
 
 const chartData = [
    { month: "January", desktop: 186, mobile: 80 },
@@ -59,6 +60,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const DashboardPage = () => {
+   const [searchQuery, setSearchQuery] = useState<string>("");
    const { assessments } = useSelector((state: RootState) => state.dataState);
 
    const router = useRouter();
@@ -99,15 +101,12 @@ const DashboardPage = () => {
                   <TabsTrigger value="analytics">Analytics</TabsTrigger>
                   <TabsTrigger value="archives">Archives</TabsTrigger>
                   <div className="absolute right-[2rem] flex gap-5">
-                     <Link href={ROUTES.ASSESSMENT_QN_BANK}>
-                        <Button variant="outline">Question Bank</Button>
-                     </Link>
                      <Button onClick={createAssessmentHandler}>Create Assessment</Button>
                   </div>
                </TabsList>
                <Header>
                   <div className="flex gap-5">
-                     <SearchBar />
+                     <SearchBar value={searchQuery} setValue={setSearchQuery} />
                      <Button variant="outline">
                         <ArrowDownUp className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                         <p className="ml-2">Sort</p>

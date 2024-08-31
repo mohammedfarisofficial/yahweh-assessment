@@ -1,9 +1,10 @@
-import { assessments as demoAssessments, AssessmentStateType } from "@/data";
+// import { assessments as demoAssessments, AssessmentStateType } from "@/data";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type dataStateProps = {
    questions?: any | null;
    assessments?: any | null;
+   question_bank?: any | null;
    loading?: boolean;
    error?: string | null;
    assessmentCreating?: any | null;
@@ -12,6 +13,7 @@ export type dataStateProps = {
 const initialState: dataStateProps = {
    questions: [],
    assessments: [],
+   question_bank: [],
    loading: false,
    error: null,
    assessmentCreating: null,

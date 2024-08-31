@@ -1,10 +1,8 @@
 "use client";
-import * as ROUTES from "@/app/constants/routes";
 import Link from "next/link";
 
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
-import AssessmentItem from "@/components/assessment/assessment";
 import {
    Table,
    TableBody,
@@ -14,7 +12,6 @@ import {
    TableHeader,
    TableRow,
 } from "@/components/ui/table";
-// import { useSelector } from "react-redux";
 
 import studentRoute from "@/app/auth/studentRoute";
 import { useSelector } from "react-redux";
@@ -95,7 +92,3 @@ function Home() {
 }
 
 export default studentRoute(Home);
-
-// {/* student's home page
-// # list fo assigment
-// # popup for assigment overview */}

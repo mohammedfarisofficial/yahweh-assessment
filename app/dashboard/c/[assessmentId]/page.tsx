@@ -165,33 +165,39 @@ const AssessmentCreate = () => {
                <p className="text-gray-400 text-sm">ID : {assessmentCreating?.id}</p>
             </div>
 
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-               <DialogTrigger asChild>
-                  <Button>Upload Assessment</Button>
-               </DialogTrigger>
-               <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                     <DialogTitle>Create New Assessement</DialogTitle>
-                     <DialogDescription>Enter Title and select Assessment type</DialogDescription>
-                  </DialogHeader>
-                  {/* <div className="grid gap-4 py-4">
-                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
-                           Enter Title
-                        </Label>
-                        <Input name="title" placeholder="Enter title..." />
-                     </div>
-                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
-                           Assessment type
-                        </Label>
-                     </div>
-                  </div> */}
-                  <DialogFooter>
-                     <Button onClick={uploadAssesmentHandler}>Upload</Button>
-                  </DialogFooter>
-               </DialogContent>
-            </Dialog>
+            {assessmentCreating && !!assessmentCreating?.questions.length ? (
+               <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                  <DialogTrigger asChild>
+                     <Button>Upload Assessment</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px]">
+                     <DialogHeader>
+                        <DialogTitle>Create New Assessement</DialogTitle>
+                        <DialogDescription>
+                           Enter Title and select Assessment type
+                        </DialogDescription>
+                     </DialogHeader>
+                     {/* <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+               <Label htmlFor="username" className="text-right">
+                  Enter Title
+               </Label>
+               <Input name="title" placeholder="Enter title..." />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+               <Label htmlFor="username" className="text-right">
+                  Assessment type
+               </Label>
+            </div>
+         </div> */}
+                     <DialogFooter>
+                        <Button onClick={uploadAssesmentHandler}>Upload</Button>
+                     </DialogFooter>
+                  </DialogContent>
+               </Dialog>
+            ) : (
+               <div />
+            )}
          </Header>
          <Dialog open={isCreateAssessmentDlgOpen}>
             <DialogContent className="sm:max-w-[425px]">
@@ -255,7 +261,7 @@ const AssessmentCreate = () => {
                   <Container>
                      <div />
                      <div className="flex gap-3">
-                        <Link href={ROUTES.ASSESSMENT_QN_BANK}>
+                        <Link href={`${ROUTES.ASSESSMENT_QN_BANK}/${assessmentCreating?.id}`}>
                            <Button variant="secondary">Browse Question Bank</Button>
                         </Link>
                         <Button onClick={navigateCreateQuestion}>Create Question</Button>
@@ -272,7 +278,9 @@ const AssessmentCreate = () => {
                         </Card>
                      ))
                   ) : (
-                     <h3>No Assessments</h3>
+                     <div className="w-full flex justify-center">
+                        <h3>No Assessments</h3>
+                     </div>
                   )}
                </TabsContent>
                <TabsContent value="settings">

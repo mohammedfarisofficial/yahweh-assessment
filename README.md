@@ -96,6 +96,23 @@ Start the server
 ```bash
   npm run dev
 ```
+## Screensh
+<img width="1300" alt="Screenshot 2024-09-02 at 8 05 41 PM" src="https://github.com/user-attachments/assets/ff09e670-aaad-4d83-8a49-9ff325630d94">
+ots
+
+<img width="1300" alt="Screenshot 2024-09-02 at 8 07 21 PM" src="https://github.com/user-attachments/assets/dcea93c8-9be3-49e0-a160-787e776ca524">
+
+<img width="1300" alt="Screenshot 2024-09-02 at 8 08 05 PM" src="https://github.com/user-attachments/assets/9fb8466e-303f-4b58-9bef-6a62bfe5ea3c">
+
+<img width="1300" alt="Screenshot 2024-09-02 at 8 08 08 PM" src="https://github.com/user-attachments/assets/3d9a2722-776e-4564-a28f-6a6478db5437">
+
+<img width="1300" alt="Screenshot 2024-09-02 at 8 08 21 PM" src="https://github.com/user-attachments/assets/83cfb5c3-d78a-447c-ab82-bc714a29c384">
+
+<img width="1300" alt="Screenshot 2024-09-02 at 8 08 50 PM" src="https://github.com/user-attachments/assets/6a854ad7-c87b-4d11-89c4-2bde3c56a8c3">
+
+<img width="1300" alt="Screenshot 2024-09-02 at 8 08 57 PM" src="https://github.com/user-attachments/assets/4b5e4062-a4fd-4a58-b3ee-d387485a2bcc">
+
+<img width="1300" alt="Screenshot 2024-09-02 at 8 09 01 PM" src="https://github.com/user-attachments/assets/b568cd0a-5f29-4592-95ac-d9c9b0f5e022">
 
 
 ## Tech Stack
